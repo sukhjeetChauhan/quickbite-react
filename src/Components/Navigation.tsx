@@ -1,4 +1,6 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../apis/user/userQueries'
 
 export default function Navigation() {
   const customerMenu = ['Home', 'Menu', 'View Order']
@@ -7,8 +9,11 @@ export default function Navigation() {
     home: '/',
     menu: '/menu',
     vieworder: '/vieworder',
-    admin: '/admin'
+    admin: '/admin',
   }
+
+  const { user } = useAuth0()
+  const { data: fetchUser, isLoading } = useUser(user?.sub as string)
 
   const navigate = useNavigate()
 
@@ -18,21 +23,33 @@ export default function Navigation() {
         {customerMenu.map((menuItem, i) => (
           <button
             key={i}
-            onClick={() => navigate(`${pathObj[menuItem.toLowerCase().replace(/\s/g, '') as keyof typeof pathObj]}`)}
+            onClick={() =>
+              navigate(
+                `${
+                  pathObj[
+                    menuItem
+                      .toLowerCase()
+                      .replace(/\s/g, '') as keyof typeof pathObj
+                  ]
+                }`
+              )
+            }
             className="rounded-full hover:bg-orange-500 border-2 border-orange-500 cursor-pointer text-orange-500 hover:text-white p-2"
           >
             {menuItem}
           </button>
         ))}
-        {adminMenu.map((menuItem, i) => (
-          <button
-            key={i}
-            onClick={() => navigate(`/${menuItem.toLowerCase()}`)}
-            className="rounded-full hover:bg-orange-500 border-2 border-orange-500 cursor-pointer text-orange-500 hover:text-white p-2"
-          >
-            {menuItem}
-          </button>
-        ))}
+        {fetchUser &&
+          fetchUser.role == 'admin' &&
+          adminMenu.map((menuItem, i) => (
+            <button
+              key={i}
+              onClick={() => navigate(`/${menuItem.toLowerCase()}`)}
+              className="rounded-full hover:bg-orange-500 border-2 border-orange-500 cursor-pointer text-orange-500 hover:text-white p-2"
+            >
+              {menuItem}
+            </button>
+          ))}
       </div>
     </div>
   )

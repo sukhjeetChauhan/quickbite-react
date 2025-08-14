@@ -10,17 +10,18 @@ import { addToCart, type CartItem } from '../store/cartSlice'
 import { message } from 'antd'
 
 export default function Home() {
-  const {
-    data: menuItem,
-    isLoading,
-    isError,
-  } = useMenuItemsByCategory('indian')
-
   const dispatch = useDispatch()
 
   const [showModal, setShowModal] = useState(false)
   const [addItem, setAddItem] = useState<MenuItem>()
   const [quantity, setQuantity] = useState<number>(1)
+  const [category, setCategory] = useState<string>('indian')
+
+  const {
+    data: menuItem,
+    isLoading,
+    isError,
+  } = useMenuItemsByCategory(category)
 
   function addItemToCart() {
     if (addItem && quantity > 0) {
@@ -94,7 +95,7 @@ export default function Home() {
         </Modal>
       )}
 
-      <Menu />
+      <Menu setCategory={setCategory} />
 
       <div
         className="h-full w-5/6 grid grid-cols-3 gap-y-12 place-items-center overflow-y-scroll py-12"

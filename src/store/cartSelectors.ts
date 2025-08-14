@@ -1,3 +1,4 @@
+import type { OrderPostInput } from '../types/apiTypes'
 import type { RootState } from './store'
 
 export const selectCartItems = (state: RootState) => state.cart.items
@@ -13,17 +14,23 @@ export const selectCartDetails = (state: RootState) => ({
   status: state.cart.status,
 })
 
-// export const selectOrderPost = (state: RootState): OrderPost => ({
-//   order: {
-//     userId: state.user.id, // assuming you store app-specific user id in Redux
-//     totalPrice: state.cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0),
-//     address: state.cart.address || '',
-//     status: state.cart.status || 'pending',
-//     paymentStatus: state.cart.paymentStatus || 'unpaid',
-//   },
-//   items: state.cart.items.map(item => ({
-//     menuItemId: item.menuItemId,
-//     quantity: item.quantity,
-//     price: item.price,
-//   })),
-// });
+export const selectOrderPost = (
+  state: RootState,
+  userId: string
+): OrderPostInput => ({
+  order: {
+    userId: userId,
+    totalPrice: state.cart.items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    ),
+    address: state.cart.address || '',
+    status: state.cart.status || 'pending',
+    paymentStatus: state.cart.paymentStatus || 'unpaid',
+  },
+  items: state.cart.items.map((item) => ({
+    menuItemId: item.menuItemId,
+    quantity: item.quantity,
+    price: item.price,
+  })),
+})

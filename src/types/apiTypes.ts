@@ -16,6 +16,7 @@ export interface User {
 }
 
 export interface CreateUserInput {
+  id: string
   firstName: string
   lastName: string
   email: string

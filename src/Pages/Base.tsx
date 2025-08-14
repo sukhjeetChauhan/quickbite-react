@@ -2,6 +2,9 @@ import { Outlet } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import Navigation from '../Components/Navigation'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useMemo } from 'react'
+import { useCreateUser, useDeleteUser, useUser } from '../apis/user/userQueries'
+import type { CreateUserInput } from '../types/apiTypes'
 
 export default function Base() {
   const {
@@ -18,8 +21,32 @@ export default function Base() {
   const logout = () =>
     auth0Logout({ logoutParams: { returnTo: window.location.origin } })
 
+  const { mutate: createUser } = useCreateUser()
+  const { data: fetchUser, isLoading: isUserLoading } = useUser(
+    user?.sub as string
+  )
+
   // Navigation
   const navigate = useNavigate()
+  const postUser: CreateUserInput = useMemo(
+    () => ({
+      id: user?.sub as string,
+      firstName: user?.nickname as string,
+      lastName: user?.nickname as string,
+      email: user?.email as string,
+      role: 'user',
+    }),
+    [user?.sub, user?.nickname, user?.email]
+  )
+
+  useEffect(() => {
+    // Only run once fetch is done and we have a user ID
+    if (!isUserLoading && user?.sub) {
+      if (!fetchUser) {
+        createUser(postUser)
+      }
+    }
+  }, [isUserLoading, fetchUser, user?.sub, createUser, postUser])
 
   if (isLoading)
     return (

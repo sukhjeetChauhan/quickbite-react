@@ -6,6 +6,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import App from './App'
+import '@ant-design/v5-patch-for-react-19'
 
 const queryClient = new QueryClient()
 

@@ -4,6 +4,7 @@ import Home from './Pages/Home'
 import Cart from './Pages/Cart'
 import './App.css'
 import Admin from './Pages/Admin'
+import ViewOrder from './Pages/ViewOrder'
 
 export default function App() {
   return (

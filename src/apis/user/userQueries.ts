@@ -36,10 +36,10 @@ export const useUpdateUser = () => {
   })
 }
 
-export const useDeleteUser = () => {
+export const useDeleteUser = (id: string) => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: userApi.deleteUser,
+    mutationFn: () => userApi.deleteUser(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] })
     },

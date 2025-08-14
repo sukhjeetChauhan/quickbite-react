@@ -17,7 +17,7 @@ interface CartState {
 
 const initialState: CartState = {
   items: [],
-  address: undefined,
+  address: '',
   paymentStatus: 'unpaid',
   status: 'pending',
 }
@@ -49,11 +49,11 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.items = []
-      state.address = undefined
+      state.address = ''
       state.paymentStatus = 'unpaid'
       state.status = 'pending'
     },
-    setAddress: (state, action: PayloadAction<string>) => {
+    setCartAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload
     },
     setPaymentStatus: (state, action: PayloadAction<'unpaid' | 'paid'>) => {
@@ -74,7 +74,7 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
-  setAddress,
+  setCartAddress,
   setPaymentStatus,
   setStatus,
 } = cartSlice.actions
