@@ -2,15 +2,17 @@ import type { MenuItem } from '../types/apiTypes'
 
 interface menuCardProp {
   item: MenuItem
-  num: number
+  setAddItem: React.Dispatch<React.SetStateAction<MenuItem | undefined>>
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function MenuCard({ item, num }: menuCardProp) {
+export default function MenuCard({
+  item,
+  setAddItem,
+  setShowModal,
+}: menuCardProp) {
   return (
-    <div
-      key={num}
-      className="flex flex-col rounded h-72 bg-gray-200 w-5/8 items-center justify-between"
-    >
+    <div className="flex flex-col rounded h-72 bg-gray-200 w-5/8 items-center justify-between">
       <div className="w-full h-3/4 flex flex-col items-center justify-center">
         <p className="text-lg font-semibold">{item.name}</p>
         <p className="text-base p-4">{item.description}</p>
@@ -27,7 +29,10 @@ export default function MenuCard({ item, num }: menuCardProp) {
       </div>
       <div className="w-full h-1/4 p-2">
         <button
-          onClick={() => setOpenModel(true)}
+          onClick={() => {
+            setShowModal(true)
+            setAddItem(item)
+          }}
           className="bg-orange-500 text-white hover:bg-orange-600 w-full h-full rounded cursor-pointer"
         >
           Add Item
