@@ -95,7 +95,7 @@ export default function Home() {
         </Modal>
       )}
 
-      <Menu setCategory={setCategory} />
+      <Menu menu={'foodtype'} setCategory={setCategory} />
 
       <div
         className="h-full w-5/6 grid grid-cols-3 gap-y-12 place-items-center overflow-y-scroll py-12"

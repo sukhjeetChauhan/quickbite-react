@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import Navigation from '../Components/Navigation'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useMemo } from 'react'
-import { useCreateUser, useDeleteUser, useUser } from '../apis/user/userQueries'
+import { useCreateUser, useUser } from '../apis/user/userQueries'
 import type { CreateUserInput } from '../types/apiTypes'
 
 export default function Base() {

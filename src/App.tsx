@@ -5,6 +5,9 @@ import Cart from './Pages/Cart'
 import './App.css'
 import Admin from './Pages/Admin'
 import ViewOrder from './Pages/ViewOrder'
+import UserAdmin from './Pages/UserAdmin'
+import OrderAdmin from './Pages/OrderAdmin'
+import StockAdmin from './Pages/StockAdmin'
 
 export default function App() {
   return (
@@ -15,7 +18,11 @@ export default function App() {
         <Route path="/menu" element={<Home />} />
         <Route path="/vieworder" element={<ViewOrder />} />
 
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="/admin/users" index element={<UserAdmin />} />
+          <Route path="/admin/orders" index element={<OrderAdmin />} />
+          <Route path="/admin/stock" index element={<StockAdmin />} />
+        </Route>
       </Route>
     </Routes>
   )

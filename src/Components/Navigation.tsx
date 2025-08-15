@@ -13,7 +13,7 @@ export default function Navigation() {
   }
 
   const { user } = useAuth0()
-  const { data: fetchUser, isLoading } = useUser(user?.sub as string)
+  const { data: fetchUser } = useUser(user?.sub as string)
 
   const navigate = useNavigate()
 

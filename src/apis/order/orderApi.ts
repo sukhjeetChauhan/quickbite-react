@@ -16,7 +16,10 @@ export const createOrder = async (payload: OrderPostInput) => {
   return data
 }
 
-export const updateOrder = async (id: number, payload: Partial<OrderPostInput>) => {
+export const updateOrder = async (
+  id: number,
+  payload: Partial<OrderPostInput['order']>
+) => {
   const { data } = await axiosInstance.put(`/orders/${id}`, payload)
   return data
 }

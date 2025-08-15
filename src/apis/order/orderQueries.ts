@@ -28,7 +28,7 @@ export const useCreateOrder = () => {
 export const useUpdateOrder = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<OrderPostInput> }) =>
+    mutationFn: ({ id, data }: { id: number; data: Partial<OrderPostInput['order']> }) =>
       orderApi.updateOrder(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] })
