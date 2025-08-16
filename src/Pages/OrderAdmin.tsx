@@ -3,6 +3,8 @@ import type { ChangeEvent } from 'react'
 import { useOrders, useUpdateOrder } from '../apis/order/orderQueries'
 import type { OrderPostInput } from '../types/apiTypes'
 
+type OrderWithId = OrderPostInput['order'] & { id: number }
+
 export default function OrderAdmin() {
   const { data: orders, isLoading, isError } = useOrders()
   const { mutate: updateOrderStatus } = useUpdateOrder()
@@ -33,7 +35,7 @@ export default function OrderAdmin() {
     <div className="w-full mt-8 h-full flex justify-center">
       <div className="w-4/5">
         <ul className="">
-          {orders.map((data: OrderPostInput['order'], index: number) => (
+          {orders.map((data: OrderWithId, index: number) => (
             <li key={index} className="py-[5px] border-b-2 border-orange-300">
               <div className="flex justify-between items-center px-4">
                 <span className="flex-1 text-center text-base lg:text-lg border-r-2 border-orange-300 py-2">
